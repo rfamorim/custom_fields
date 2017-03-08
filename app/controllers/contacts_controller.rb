@@ -1,4 +1,4 @@
-class CustomFieldsController < ApplicationController
+class ContactsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_collection, only: [:index]
   before_action :set_resource, only: [:edit, :update, :destroy]
@@ -8,15 +8,15 @@ class CustomFieldsController < ApplicationController
   end
 
   def new
-    @custom_field = CustomField.new
+    @contact = Contact.new
   end
 
   def create
-    @custom_field = CustomField.new(user: current_user, custom_field_create_params)
+    @contact = Contact.new(user: current_user, contact_create_params)
 
-    if @custom_field.save
+    if @contact.save
       flash[:success] = "Campo Personalizado criado com sucesso."
-      redirect_to custom_fields_path
+      redirect_to contacts_path
     else
       flash[:error] = "Ocorreu um problema ao criar o Campo Personalizado."
       render :new
@@ -28,9 +28,9 @@ class CustomFieldsController < ApplicationController
   end
 
   def update
-    if @custom_field.update_attributes custom_field_update_params
+    if @contact.update_attributes contact_update_params
       flash[:success] = "Campo Personalizado atualizado com sucesso."
-      redirect_to custom_fields_path
+      redirect_to contacts_path
     else
       flash[:error] = "Ocorreu um problema ao atualizar o Campo Personalizado."
       render :edit
@@ -38,38 +38,38 @@ class CustomFieldsController < ApplicationController
   end
 
   def destroy
-    if @custom_field.destroy
+    if @contact.destroy
       flash[:success] = "Campo Personalizado apagado com sucesso."
     else
       flash[:error] = "Ocorreu um problema ao apagar o Campo Personalizado."
     end
     
-    redirect_to custom_fields_path
+    redirect_to contacts_path
   end
 
   private
     def set_collection
-      @custom_fields = current_user.custom_fields
+      @contacts = current_user.contacts
     end
 
     def set_resource
-      @custom_field = CustomField.find params[:id]
+      @contact = Contact.find params[:id]
     end
 
 
-    def custom_field_create_params
-      params.require(:custom_field).permit(
+    def contact_create_params
+      params.require(:contact).permit(
+        :email,
         :name,
-        :type,
-        :options
+        :custom_fields
       )
     end
 
-    def custom_field_update_params
-      params.require(:custom_field).permit(
+    def contact_update_params
+      params.require(:contact).permit(
+        :email,
         :name,
-        :type,
-        :options
+        :custom_fields
       )
     end
 end

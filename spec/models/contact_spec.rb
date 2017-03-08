@@ -15,5 +15,27 @@
 require 'rails_helper'
 
 RSpec.describe Contact, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  subject { FactoryGirl.build_stubbed(:contact) }
+  let(:contact) { FactoryGirl.build(:contact) }
+
+  # RESPOND TO
+  [:email, :name, :custom_fields, :deleted_at].each do |attr|
+    it "should respond to #{attr}" do
+      should respond_to attr
+    end
+  end
+
+  # BELONGS TO
+  [:user].each do |attr|
+    it "should belong to #{attr}" do
+      should belong_to attr
+    end
+  end
+
+  # PRESENCE
+  [:email].each do |attr|
+    it "should validate the presence of #{attr}" do
+      should validate_presence_of attr
+    end
+  end
 end
