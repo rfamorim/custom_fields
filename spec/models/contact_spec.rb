@@ -33,7 +33,7 @@ RSpec.describe Contact, type: :model do
   end
 
   # PRESENCE
-  [:email].each do |attr|
+  [:email, :user_id].each do |attr|
     it "should validate the presence of #{attr}" do
       should validate_presence_of attr
     end

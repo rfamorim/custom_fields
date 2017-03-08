@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20170308043234) do
 
   create_table "custom_fields", force: :cascade do |t|
     t.string   "name"
-    t.integer  "type"
+    t.integer  "field_type"
     t.text     "options",    default: [],              array: true
     t.datetime "deleted_at"
     t.integer  "user_id"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20170308043234) do
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.string   "fields",                 default: [],              array: true
+    t.datetime "deleted_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
   end

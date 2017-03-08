@@ -12,7 +12,7 @@ class ContactsController < ApplicationController
   end
 
   def create
-    @contact = Contact.new(user: current_user, contact_create_params)
+    @contact = Contact.new contact_create_params
 
     if @contact.save
       flash[:success] = "Campo Personalizado criado com sucesso."
@@ -59,6 +59,7 @@ class ContactsController < ApplicationController
 
     def contact_create_params
       params.require(:contact).permit(
+        :user_id,
         :email,
         :name,
         :custom_fields
@@ -67,6 +68,7 @@ class ContactsController < ApplicationController
 
     def contact_update_params
       params.require(:contact).permit(
+        :user_id,
         :email,
         :name,
         :custom_fields

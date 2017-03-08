@@ -12,7 +12,7 @@ class CustomFieldsController < ApplicationController
   end
 
   def create
-    @custom_field = CustomField.new(user: current_user, custom_field_create_params)
+    @custom_field = CustomField.new custom_field_create_params
 
     if @custom_field.save
       flash[:success] = "Campo Personalizado criado com sucesso."
@@ -59,16 +59,18 @@ class CustomFieldsController < ApplicationController
 
     def custom_field_create_params
       params.require(:custom_field).permit(
+        :user_id,
         :name,
-        :type,
+        :field_type,
         :options
       )
     end
 
     def custom_field_update_params
       params.require(:custom_field).permit(
+        :user_id,
         :name,
-        :type,
+        :field_type,
         :options
       )
     end

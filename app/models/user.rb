@@ -14,6 +14,7 @@
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
 #  fields                 :string           default("{}"), is an Array
+#  deleted_at             :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #

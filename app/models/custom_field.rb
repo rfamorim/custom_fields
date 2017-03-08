@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  name       :string
-#  type       :integer
+#  field_type :integer
 #  options    :text             default("{}"), is an Array
 #  deleted_at :datetime
 #  user_id    :integer
@@ -17,19 +17,20 @@ class CustomField < ActiveRecord::Base
 
   belongs_to :user
 
-  validates_presence_of :name, :type
+  validates_presence_of :name, :field_type, :user_id
 
-  enum type: { text: 0, textarea: 1, combobox: 2 }
+  enum field_type: { text: 0, textarea: 1, combobox: 2 }
 
-  validates_presence_of :options, if: -> { self.type == "combobox" }
+  validates_presence_of :options, if: -> { self.field_type == "combobox" }
+  validates_absence_of :options, unless: -> { self.field_type == "combobox" }
 
   validates_uniqueness_of :name, scope: :user_id
 
-  after_create :set_field_on_user
-  after_create :set_field_on_contacts
+  after_create :set_field_on_user, if: -> { self.user_id.present? }
+  after_create :set_field_on_contacts, if: -> { self.user_id.present? }
 
-  after_destroy :remove_field_on_user
-  after_destroy :remove_field_on_contacts
+  after_destroy :remove_field_on_user, if: -> { self.user_id.present? }
+  after_destroy :remove_field_on_contacts, if: -> { self.user_id.present? }
 
   private
     def set_field_on_user
@@ -39,7 +40,7 @@ class CustomField < ActiveRecord::Base
 
     def set_field_on_contacts
       self.user.contacts.each do |c|
-        c.custom_fields.merge(self.name: "")
+        c.custom_fields.merge("#{self.name}": "")
         c.save(validate: false)
       end
     end

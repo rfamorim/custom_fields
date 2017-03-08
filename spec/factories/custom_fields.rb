@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  name       :string
-#  type       :integer
+#  field_type :integer
 #  options    :text             default("{}"), is an Array
 #  deleted_at :datetime
 #  user_id    :integer
@@ -15,7 +15,7 @@
 FactoryGirl.define do
   factory :custom_field do
     name "MyString"
-    type 1
+    field_type 1
     user nil
   end
 end

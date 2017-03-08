@@ -31,6 +31,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.datetime :locked_at
 
       t.string :fields, array: true, default: []
+      t.datetime :deleted_at
 
       t.timestamps null: false
     end
