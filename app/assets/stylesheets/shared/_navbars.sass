@@ -1,0 +1,29 @@
+@import "bourbon"
+
+@import "shared/texts"
+
+nav.navbar.navbar-default
+  background-color: $color-violet
+  margin-bottom: 0
+
+  ul.nav.navbar-nav
+    li
+      a
+        padding-left: 15px
+        padding-right: 15px
+        @extend .text-small
+        color: $color-white
+        +transition(0.3s ease background-color)
+        &:hover
+          color: $color-white
+          background-color: $color-purple
+        &.active
+          background-color: $color-purple
+
+  ul.nav.navbar-nav.navbar-right
+    padding-top: 20px
+
+    span
+      @extend .text-small
+      color: $color-white
+      text-align: right

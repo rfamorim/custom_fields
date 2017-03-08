@@ -1,0 +1,59 @@
+@import "config/settings"
+
+@import "shared/texts"
+
+.collision-form
+  li
+    list-style-type: none
+    margin: 10px 0px
+
+    label
+      @extend .text-big
+      color: $color-violet
+      font-size: 16px
+
+    input
+      border-style: solid
+      border-width: 1px
+      border-color: $color-violet
+
+  div
+    margin-top: 20px
+
+.collisions-file-form
+  @extend .collision-form
+
+  .file-field-input
+    @extend .text-big
+    border-radius: $radius
+    padding: 10px
+    background-color: $color-white
+    border-style: solid
+    border-width: 1px
+    border-color: $color-violet  
+    color: $color-violet
+
+.nodes-index-form
+  @extend .collision-form
+
+  label
+    margin-right: 5px
+
+  input
+    &::-webkit-input-placeholder
+      @extend .text-big
+
+    &::-moz-placeholder
+      @extend .text-big
+
+    &:-ms-input-placeholder
+      @extend .text-big
+      
+    &:-moz-placeholder
+      @extend .text-big
+
+  span
+    @extend .network-verification-text
+
+  hr
+    color: $color-violet

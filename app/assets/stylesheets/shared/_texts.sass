@@ -1,0 +1,38 @@
+.basic-text
+  font-style: normal
+  font-stretch: normal
+  font-family: $font-main
+
+.text
+  font-weight: bold
+  @extend .basic-text
+
+.text-small
+  @extend .text
+  font-size: 12px
+
+.text-medium
+  @extend .text
+  font-size: 14px
+
+.text-big
+  @extend .text
+  font-size: 16px
+
+.network-verification-text
+  @extend .text-big
+  color: $color-wine
+
+.author
+  @extend .text
+  font-size: 20px
+  font-family: $font-secondary
+  color: $color-wine
+
+  &.name
+    font-style: italic
+    text-decoration: underline
+
+.available-extensions
+  @extend .author
+  font-size: 16px

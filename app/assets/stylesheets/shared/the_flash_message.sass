@@ -1,0 +1,47 @@
+// Done by Inventos Digitais Ltda. and changed by Rodrigo F. Amorim
+
+.the-flash-message
+  position: fixed
+  display: block
+  top: 80px
+  margin: 0 auto
+  padding: 10px
+  transition: 0.3s all ease-in-out
+  transform: translateX(-50%)
+  left: 50%
+  z-index: 1100
+  .the-flash-message-body
+    display: inline-block
+    position: relative
+    width: 100%
+    padding: 18px
+    margin-bottom: 15px
+    border-radius: 4px
+    color: $color-white
+    font-size: 14px
+    font-weight: bold
+    text-transform: uppercase
+    opacity: 0
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.4)
+    transition: 0.4s all ease-in-out
+    z-index: 200
+    p
+      text-align: center
+      font-size: 14px
+      letter-spacing: 1px
+      margin: 0px
+    .close
+      position: absolute
+      top: 50%
+      right: 30px
+      transform: translateY(-50%)
+      padding: 0
+      color: $color-white
+      font-size: 20px
+      cursor: pointer
+    &.success
+      background-color: $color-green
+    &.warning
+      background-color: $color-blue
+    &.error
+      background-color: $color-red
