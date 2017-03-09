@@ -39,8 +39,33 @@ RSpec.describe CustomField, type: :model do
     end
   end
 
+  # PRESENCE OF OPTIONS
+  describe 'when a custom_field has a field_type as' do
+    context "combobox" do
+      before(:each) do
+        @custom_field = FactoryGirl.build(:custom_field, field_type: "combobox", options: nil)
+      end
+
+      it 'should have options' do
+        expect(@custom_field).not_to be_valid
+      end
+    end
+
+    context "text" do
+      before(:each) do
+        @custom_field = FactoryGirl.build(:custom_field, field_type: "text", options: ["1","2","3"])
+      end
+
+      it 'should not have options' do
+        expect(@custom_field).not_to be_valid
+      end
+    end
+    
+  end
+
   # UNIQUENESS
   it "should validate the uniqueness of the name scoped to the user_id" do
     custom_field.should validate_uniqueness_of(:name).scoped_to(:user_id)
   end
+
 end

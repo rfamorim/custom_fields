@@ -14,8 +14,14 @@
 
 FactoryGirl.define do
   factory :custom_field do
-    name "MyString"
-    field_type 1
-    user nil
+    sequence(:name) { |n| "Nome #{n}" }
+    sequence(:field_type) { |n| rand(0..2) }
+    association :user
+
+    after(:build) do |cf|
+      if cf.field_type == "combobox"
+        cf.options = ["Opção 1", "Opção 2", "Opção 3"]
+      end
+    end
   end
 end

@@ -14,10 +14,9 @@
 
 FactoryGirl.define do
   factory :contact do
-    email "MyString"
-    name "MyString"
-    custom_fields ""
-    deleted_at "2017-03-08 01:32:34"
-    user nil
+    sequence(:email) { |n| "email#{n}@example.com" }
+    sequence(:name) { |n| "Nome do Contato #{n}" }
+    custom_fields {{ "Telefone" => "12345678", "Cidade" => "Florianópolis" }}
+    association :user
   end
 end
