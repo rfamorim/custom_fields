@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe ContactsController, type: :controller do
+RSpec.describe CustomFieldsController, type: :controller do
   before(:each) do
     request.env["devise.mapping"] = Devise.mappings[:user]
     sign_in @user_test = FactoryGirl.create(:user)
-    @contact_test = FactoryGirl.create(:contact, user: @user_test)
+    @custom_field_test = FactoryGirl.create(:custom_field, user: @user_test, field_type: "textarea")
   end
 
   after(:each) do
     sign_out @user_test
     @user_test.destroy
-    @contact_test.destroy
+    @custom_field_test.destroy
   end
 
   describe 'GET index' do
@@ -23,7 +23,7 @@ RSpec.describe ContactsController, type: :controller do
     end
 
     it 'should return the right resource' do
-      expect(assigns(:contacts).to_a).to eq([@contact_test])
+      expect(assigns(:custom_fields).to_a).to eq([@custom_field_test])
     end
 
     it 'should render the right view' do
@@ -41,8 +41,8 @@ RSpec.describe ContactsController, type: :controller do
     end
 
     it 'should return the right resource' do
-      expect(assigns(:contact)).not_to be_nil
-      expect(assigns(:contact)).to be_a Contact
+      expect(assigns(:custom_field)).not_to be_nil
+      expect(assigns(:custom_field)).to be_a CustomField
     end
 
     it 'should render the right view' do
@@ -52,7 +52,7 @@ RSpec.describe ContactsController, type: :controller do
 
   describe 'POST create with correct attributes' do
     before(:each) do
-      post :create, contact: FactoryGirl.attributes_for(:contact, user_id: @user_test.id)
+      post :create, custom_field: FactoryGirl.attributes_for(:custom_field, field_type: "text", user_id: @user_test.id)
     end
 
     it 'should return 302' do
@@ -60,27 +60,27 @@ RSpec.describe ContactsController, type: :controller do
     end
 
     it 'should set the right resource' do
-      expect(assigns(:contact)).not_to be_nil
+      expect(assigns(:custom_field)).not_to be_nil
     end
 
     it 'should redirect to the resource' do
-      expect(response).to redirect_to(contacts_path)
+      expect(response).to redirect_to(custom_fields_path)
     end
   end
 
   describe 'POST create with correct attributes' do
-    it 'should create an Contact' do
+    it 'should create an CustomField' do
       expect do
-        post :create, contact: FactoryGirl.attributes_for(:contact, user_id: @user_test.id)
+        post :create, custom_field: FactoryGirl.attributes_for(:custom_field, field_type: "text", user_id: @user_test.id)
       end.to change {
-        Contact.count
+        CustomField.count
       }.by(1)
     end
   end
 
   describe 'POST create with incorrect attributes' do
     before(:each) do
-      post :create, contact: FactoryGirl.attributes_for(:contact, email: nil)
+      post :create, custom_field: FactoryGirl.attributes_for(:custom_field, field_type: nil)
     end
 
     it 'should return 200' do
@@ -88,7 +88,7 @@ RSpec.describe ContactsController, type: :controller do
     end
 
     it 'should set the right resource' do
-      expect(assigns(:contact)).not_to be_nil
+      expect(assigns(:custom_field)).not_to be_nil
     end
 
     it 'should render the right view' do
@@ -97,18 +97,18 @@ RSpec.describe ContactsController, type: :controller do
   end
 
   describe 'POST create with incorrect attributes' do
-    it 'should create an Contact' do
+    it 'should create an CustomField' do
       expect do
-        post :create, contact: FactoryGirl.attributes_for(:contact, email: nil)
+        post :create, custom_field: FactoryGirl.attributes_for(:custom_field, field_type: nil)
       end.to change {
-        Contact.count
+        CustomField.count
       }.by(0)
     end
   end
 
   describe 'GET edit' do
     before(:each) do
-      get :edit, id: @contact_test.id
+      get :edit, id: @custom_field_test.id
     end
 
     it 'should return 200' do
@@ -116,7 +116,7 @@ RSpec.describe ContactsController, type: :controller do
     end
 
     it 'should return the right resource' do
-      expect(assigns(:contact)).to eq(@contact_test)
+      expect(assigns(:custom_field)).to eq(@custom_field_test)
     end
 
     it 'should render the right view' do
@@ -127,8 +127,8 @@ RSpec.describe ContactsController, type: :controller do
   describe 'PATCH update' do
     context 'with valid attributes' do
       before(:each) do
-        @new_attributes = { name: 'Novo Nome.', email: 'novo@email.com' }
-        patch :update, id: @contact_test.id, contact: @new_attributes
+        @new_attributes = { name: 'Novo Nome.', field_type: 'text' }
+        patch :update, id: @custom_field_test.id, custom_field: @new_attributes
       end
 
       it 'should return 302' do
@@ -136,22 +136,22 @@ RSpec.describe ContactsController, type: :controller do
       end
 
       it 'should return the right resource' do
-        expect(assigns(:contact)).to eq(@contact_test)
+        expect(assigns(:custom_field)).to eq(@custom_field_test)
       end
 
-      it 'should change the contact name' do
-        expect(assigns(:contact).reload.name).to eq(@new_attributes[:name])
+      it 'should change the custom_field name' do
+        expect(assigns(:custom_field).reload.name).to eq(@new_attributes[:name])
       end
 
-      it 'should change the contact email' do
-        expect(assigns(:contact).reload.email).to eq(@new_attributes[:email])
+      it 'should change the custom_field field_type' do
+        expect(assigns(:custom_field).reload.field_type).to eq(@new_attributes[:field_type])
       end
     end
 
     context 'with invalid attributes' do
       before(:each) do
-        @new_attributes = { name: nil, email: nil }
-        patch :update, id: @contact_test.id, contact: @new_attributes
+        @new_attributes = { name: nil, field_type: nil }
+        patch :update, id: @custom_field_test.id, custom_field: @new_attributes
       end
 
       it 'should return 200' do
@@ -159,11 +159,11 @@ RSpec.describe ContactsController, type: :controller do
       end
 
       it 'should return the right resource' do
-        expect(assigns(:contact)).to eq(@contact_test)
+        expect(assigns(:custom_field)).to eq(@custom_field_test)
       end
 
-      it 'should set errors on the contact' do
-        expect(assigns(:contact).errors).not_to be_blank
+      it 'should set errors on the custom_field' do
+        expect(assigns(:custom_field).errors).not_to be_blank
       end
 
       it 'should render the right view' do
@@ -174,7 +174,7 @@ RSpec.describe ContactsController, type: :controller do
 
   describe 'DELETE destroy' do
     before(:each) do
-      delete :destroy, id: @contact_test.id
+      delete :destroy, id: @custom_field_test.id
     end
 
     it 'should return 302' do
@@ -182,17 +182,18 @@ RSpec.describe ContactsController, type: :controller do
     end
 
     it 'should set the right variables' do
-      expect(assigns(:contact)).not_to be_nil
+      expect(assigns(:custom_field)).not_to be_nil
     end
   end
 
   describe 'DELETE destroy' do
-    it 'should destroy an Contact' do
+    it 'should destroy an CustomField' do
       expect do
-        delete :destroy, id: @contact_test.id
+        delete :destroy, id: @custom_field_test.id
       end.to change {
-        Contact.count
+        CustomField.count
       }.by(-1)
     end
   end
+
 end

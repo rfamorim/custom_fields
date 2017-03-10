@@ -15,7 +15,7 @@
 FactoryGirl.define do
   factory :custom_field do
     sequence(:name) { |n| "Nome #{n}" }
-    sequence(:field_type) { |n| rand(0..2) }
+    sequence(:field_type) { |n| ["text", "textarea" ,"combobox"].sample }
     association :user
 
     after(:build) do |cf|
