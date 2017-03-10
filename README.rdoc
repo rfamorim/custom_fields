@@ -1,28 +1,17 @@
-== README
+Custom Fields Problem solved by Rodrigo Amorim - March 2017
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+In order to run this code, you must follow these steps:
 
-Things you may want to cover:
+1. On Terminal, run the command 'bundle install'
+2. On Terminal, run the command 'rake db:create'
+3. On Terminal, run the command 'rake db:migrate'
+4. On Terminal, run the command 'rake db:seed'
+5. On Terminal, run the command 'rails s'
+6. On a Web Browser, write the url "http://localhost:3000"
+7. On a Web Browser, log in the system using the following credentials: 
+  Email: rodrigo@example.com
+  Password: rodrigo123
 
-* Ruby version
+Now, you would be able to navigate between the system.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+To run the unit tests made, on Terminal, run the command 'rspec .'.
