@@ -8,6 +8,6 @@
 
 u = User.create(email: "rodrigo@example.com", password: "rodrigo123", password_confirmation: "rodrigo123", name: "Rodrigo Amorim")
 
-20.times do 
-  FactoryGirl.create(:contact, user: u)
+20.times do |n|
+  Contact.create(name: "Nome #{n} Sobrenome", email: "email#{n}example.com.br", user: u)
 end
