@@ -1,0 +1,8 @@
+.form-centered
+  = semantic_form_for @contact do |f|
+    = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
+    = f.input :email, label: "Email"
+    = f.input :name, label: "Nome"
+    = f.semantic_fields_for :custom_fields do |c_f|
+      - current_user.fields.each do |f|
+        = cf.input f

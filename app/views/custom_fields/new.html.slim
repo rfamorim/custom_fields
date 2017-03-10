@@ -1,0 +1,8 @@
+.form-centered
+  = semantic_form_for @custom_field do |f|
+    = f.input :user_id, as: :hidden, input_html: { value: current_user.id }
+    = f.input :name, label: "Nome"
+    = f.input :field_type, as: :select, label: "Tipo de Input", collection: CustomField.field_types_collection_for_select
+    - f.object.field_type == "combobox"
+      
+    = f.submit "Criar Campo"

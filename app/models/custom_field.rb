@@ -32,6 +32,10 @@ class CustomField < ActiveRecord::Base
   after_destroy :remove_field_on_user, if: -> { self.user_id.present? }
   after_destroy :remove_field_on_contacts, if: -> { self.user_id.present? }
 
+  def self.field_types_collection_for_select
+    self.enum_as_collection_for_select :field_types
+  end
+
   private
     def set_field_on_user
       self.user.fields.push self.name

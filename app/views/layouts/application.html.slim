@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    = metamagic site: 'Custom Field problem - Solved by Rodrigo F. Amorim', title: [:site, :title], separator: " | "
+
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+
+    meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+  body
+    - flash.each do |name, msg|
+      javascript:
+        TheFlashMessage.show("#{name}", "#{msg}");
+    - if user_signed_in?
+      = render "partials/nav_bar"
+      .container
+        .row
+          .col-lg-4.col-lg-offset-4.col-md-6.col-md-offset-3
+            = yield
+    - else
+      .container.form-content
+        .row
+          .col-lg-4.col-lg-offset-4.col-md-6.col-md-offset-3
+            .form-centered
+              = yield

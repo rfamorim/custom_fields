@@ -1,0 +1,8 @@
+pt-BR:
+  activerecord:
+    attributes:
+      custom_field:
+        field_types:
+          text: Texto
+          textarea: Área de Texto
+          combobox: Seletor de Opções

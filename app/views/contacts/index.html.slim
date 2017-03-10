@@ -1,0 +1,15 @@
+table
+  thead
+    tr
+      th Email
+      th Nome
+      - current_user.fields.each do |f|
+        th= f
+
+  tbody
+    - @contacts.each do |c|
+      tr
+        td= c.email
+        td= c.name
+        - current_user.fields.each do |f|
+          td= c.custom_fields[f]

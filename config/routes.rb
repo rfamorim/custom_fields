@@ -8,4 +8,5 @@ Rails.application.routes.draw do
 
   resources :custom_fields, only: [:index, :new, :create, :edit, :update, :destroy], path: 'campos_personalizados'
 
+  root to: 'users/sessions#new'
 end

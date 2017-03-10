@@ -1,0 +1,10 @@
+nav.navbar.navbar-default
+  .container
+    .collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li= link_to "Página Inicial", root_path
+        li= link_to "Contatos", contacts_path, class: ('active' if request.path.include? contacts_path)
+        li= link_to "Campos Personalizados", custom_fields_path, class: ('active' if request.path.include? custom_fields_path)
+
+      ul.nav.navbar-nav.navbar-right
+        span Teste feito por Rodrigo F. Amorim

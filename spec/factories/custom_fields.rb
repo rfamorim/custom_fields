@@ -19,9 +19,16 @@ FactoryGirl.define do
     association :user
 
     after(:build) do |cf|
-      if cf.field_type == "combobox"
+      if cf.field_type == "combobox" and cf.name != "Campo Personalizado Incorreto"
         cf.options = ["Opção 1", "Opção 2", "Opção 3"]
       end
+    end
+
+    factory :custom_field_without_options do
+      name "Campo Personalizado Incorreto"
+      association :user
+      field_type "combobox"
+      options nil
     end
   end
 end

@@ -1,0 +1,19 @@
+table
+  thead
+    tr
+      th Nome
+      th Tipo
+      th Opções
+
+  tbody
+    - @custom_fields.each do |cf|
+      tr
+        td= cf.name
+        td= cf.field_type
+        - unless cf.options.blank?
+          td
+            ul
+              - cf.options.each do |o|
+                li= o
+        - else
+          td Não há opções

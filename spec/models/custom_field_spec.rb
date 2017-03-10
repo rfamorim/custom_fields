@@ -42,25 +42,70 @@ RSpec.describe CustomField, type: :model do
   # PRESENCE OF OPTIONS
   describe 'when a custom_field has a field_type as' do
     context "combobox" do
-      before(:each) do
-        @custom_field = FactoryGirl.build(:custom_field, field_type: "combobox", options: nil)
+      context "and has no options" do
+        before(:each) do
+          @custom_field = FactoryGirl.build(:custom_field_without_options)
+        end
+
+        it 'should not be valid' do
+          expect(@custom_field).not_to be_valid
+        end
       end
 
-      it 'should have options' do
-        expect(@custom_field).not_to be_valid
+      context "and has options" do
+        before(:each) do
+          @custom_field = FactoryGirl.build(:custom_field, field_type: "combobox", options: ["1", "2", "3"])
+        end
+
+        it 'should be valid' do
+          expect(@custom_field).to be_valid
+        end
       end
     end
 
     context "text" do
-      before(:each) do
-        @custom_field = FactoryGirl.build(:custom_field, field_type: "text", options: ["1","2","3"])
+      context "and has no options" do
+        before(:each) do
+          @custom_field = FactoryGirl.build(:custom_field, field_type: "text", options: nil)
+        end
+
+        it 'should be valid' do
+          expect(@custom_field).to be_valid
+        end
       end
 
-      it 'should not have options' do
-        expect(@custom_field).not_to be_valid
+      context "and has options" do
+        before(:each) do
+          @custom_field = FactoryGirl.build(:custom_field, field_type: "text", options: ["1", "2", "3"])
+        end
+
+        it 'should not be valid' do
+          expect(@custom_field).not_to be_valid
+        end
       end
     end
-    
+
+    context "textarea" do
+      context "and has no options" do
+        before(:each) do
+          @custom_field = FactoryGirl.build(:custom_field, field_type: "textarea", options: nil)
+        end
+
+        it 'should be valid' do
+          expect(@custom_field).to be_valid
+        end
+      end
+
+      context "and has options" do
+        before(:each) do
+          @custom_field = FactoryGirl.build(:custom_field, field_type: "textarea", options: ["1", "2", "3"])
+        end
+
+        it 'should not be valid' do
+          expect(@custom_field).not_to be_valid
+        end
+      end
+    end
   end
 
   # UNIQUENESS
